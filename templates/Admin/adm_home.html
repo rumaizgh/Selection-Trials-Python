@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: linear-gradient(135deg, #003366, #000000);
+            background-size: 400% 400%;
+            animation: gradientAnimation 8s ease infinite;
+            position: relative;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            max-height: 90vh;
+            overflow: hidden;
+            gap: 10px;
+            z-index: 10;
+        }
+        a {
+            display: inline-block;
+            width: 200px;
+            margin: 8px;
+            padding: 12px 0;
+            background: #007bff;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+            border-radius: 30px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        a:hover {
+            background: #0056b3;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        /* Floating footballs */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Soccer_ball.svg/120px-Soccer_ball.svg.png') no-repeat center center;
+            background-size: cover;
+            animation: floatCircle 10s ease-in-out infinite;
+            opacity: 19;
+        }
+
+        .circle.small {
+            width: 40px;
+            height: 40px;
+            top: 30%;
+            left: 10%;
+            animation-duration: 7s;
+            animation-delay: 0s;
+        }
+
+        .circle.medium {
+            width: 70px;
+            height: 70px;
+            top: 60%;
+            left: 80%;
+            animation-duration: 10s;
+            animation-delay: 2s;
+        }
+
+        .circle.large {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 50%;
+            animation-duration: 15s;
+            animation-delay: 4s;
+        }
+
+        @keyframes floatCircle {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-40px) scale(1.1); }
+            100% { transform: translateY(0) scale(1); }
+        }
+
+        /* New floating square */
+        .square {
+            position: absolute;
+            background: rgba(128, 128, 128, 0.1);
+            animation: floatSquare 8s ease-in-out infinite, rotateSquare 8s linear infinite;
+            opacity: 19;
+            border-radius: 15px;
+        }
+
+        .square.small {
+            width: 30px;
+            height: 30px;
+            bottom: 10%;
+            right: 20%;
+            animation-duration: 6s;
+            animation-delay: 1s;
+        }
+
+        .square.medium {
+            width: 80px;
+            height: 80px;
+            top: 70%;
+            right: 40%;
+            animation-duration: 10s;
+            animation-delay: 0.1s;
+        }
+
+        @keyframes floatSquare {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-50px) translateX(30px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        @keyframes rotateSquare {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* New floating triangle */
+        .triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 40px solid rgba(255, 255, 255, 0.2);
+            animation: floatTriangle 12s ease-in-out infinite, rotateTriangle 12s linear infinite;
+            opacity: 19;
+        }
+
+        .triangle.small {
+            bottom: 50px;
+            left: 30%;
+            animation-duration: 7s;
+            animation-delay: 3s;
+        }
+
+        .triangle.large {
+            bottom: 150px;
+            right: 60%;
+            animation-duration: 14s;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes floatTriangle {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-40px) translateX(50px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        @keyframes rotateTriangle {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Bouncing ball animation */
+        .ball {
+            position: absolute;
+            bottom: 5%;
+            right: 10%;
+            width: 30px;
+            height: 30px;
+            background-color: #007bff;
+            border-radius: 50%;
+            animation: bounceBall 3s ease-in-out infinite;
+        }
+
+        @keyframes bounceBall {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-100px); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Admin Home</h1>
+    <div class="container">
+        <a href="/myapp/adm_view_verify_academy/">View and Verify Academy</a>
+        <a href="/myapp/adm_view_approved_academy/">View Approved Academy</a>
+        <a href="/myapp/adm_view_rejected_academy/">View Rejected Academy</a>
+
+        <a href="/myapp/adm_add_game/">Add Game</a>
+        <a href="/myapp/adm_view_game/">View Game</a>
+        <a href="/myapp/adm_edit_game/">Edit Game</a>
+
+
+
+        <a href="/myapp/adm_view_coach_approve_reject/">View Coach and Verify</a>
+        <a href="/myapp/adm_view_approved_coaches/">View Approved Coach</a>
+        <a href="/myapp/adm_view_rejected_coaches/">View Rejected Coach</a>
+        <a href="/myapp/adm_view_trails/">View Trials</a>
+{#        <a href="/myapp/adm_sent_reply/">Sent Reply</a>#}
+        <a href="/myapp/adm_view_complaints_sent_reply/">View Complaints</a>
+        <a href="/myapp/adm_change_password/">Change Password</a>
+{#        <a href="/myapp/adm_view_reviews_about_academy_coach/">View Review</a>#}
+        <a href="/myapp/login/">Log out</a>
+    </div>
+
+    <!-- Floating objects for animation -->
+    <div class="circle small"></div>
+    <div class="circle medium"></div>
+    <div class="circle large"></div>
+    <div class="square small"></div>
+    <div class="square medium"></div>
+    <div class="triangle small"></div>
+    <div class="triangle large"></div>
+
+    <!-- Bouncing ball animation -->
+    <div class="ball"></div>
+
+</body>
+</html>

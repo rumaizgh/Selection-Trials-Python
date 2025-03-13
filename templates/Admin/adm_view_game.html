@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+<table width="200" border="1">
+  <tbody>
+    <tr>
+      <td><h4>Sl No</h4></td>
+      <td><h4>Game</h4></td>
+      <td><h4>Picture</h4></td>
+      <td><h4>Description</h4></td>
+    </tr>
+    <tr>{% for i in htmldata %}
+      <td>{{ forloop.counter }}</td>
+      <td>{{ i.name }}</td>
+        <td>
+      <img src="{{ i.photo }}" height="100" width="100">
+      </td>
+
+      <td>{{ i.description }}</td>
+      <td><a href="/myapp/adm_edit_game/{{ i.id }}">edit</a></td>
+      <td><a href="/myapp/adm_delete_game_post/{{ i.id }}" onclick="return confirm('Are You Sure?')">delete</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</body>
+</html>

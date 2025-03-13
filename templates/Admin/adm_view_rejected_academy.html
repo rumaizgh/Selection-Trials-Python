@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>adm_view_rejected_academy</title>
+</head>
+
+<body>
+<form id="form1" name="form1" method="post" action="/myapp/adm_view_rejected_academy_post/">
+{% csrf_token %}
+  <table width="200" border="1">
+    <tr>
+      <th scope="row"><label for="textfield"></label>
+      <input type="text" name="textfield" id="textfield" /></th>
+      <td><input type="submit" name="button" id="button" value="search" /></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  <table width="677" border="1">
+    <tr>
+      <th>slno</th>
+      <td>name</td>
+      <td>Logo</td>
+      <td>email</td>
+      <td>phone </td>
+      <td>Addres</td>
+      <td>proof</td>
+      <td>insta_id</td>
+      <td>since</td>
+     
+    
+    </tr>
+      {% for i in data %}
+
+    <tr>
+      <th>{{ forloop.counter }}&nbsp;</th>
+      <td>{{ i.name }}&nbsp;</td>
+      <td><img src="{{ i.logo }}" height="100px" width="100px"></td>
+      <td>{{ i.email }}&nbsp;</td>
+      <td>{{ i.phone }}&nbsp;</td>
+      <td>&nbsp;{{ i.place }}<br>{{ i.district }}<br>{{ i.state }}<br>{{ i.country }}</td>
+      <td>&nbsp;<img src="{{ i.proof }}"height="100px" width="100px"></td>
+      <td>&nbsp;{{ i.insta_id }}</td>
+      <td>&nbsp;{{ i.since }}</td>
+   
+    </tr>
+      {% endfor %}
+  </table>
+  <p>&nbsp;</p>
+</form>
+</body>
+</html>

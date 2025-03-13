@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: linear-gradient(135deg, #003366, #006699);
+            background-size: 400% 400%;
+            animation: gradientAnimation 8s ease infinite;
+            position: relative;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Form styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+        label {
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #1e90ff; /* Light blue border */
+            border-radius: 5px;
+            background: transparent;
+            color: #fff;
+        }
+        input[type="submit"] {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 30px;
+            background: #1e90ff; /* Light blue button */
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        input[type="submit"]:hover {
+            background: #4682b4; /* Darker blue on hover */
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Styled link */
+        a {
+            color: #1e90ff;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        a:hover {
+            color: #4682b4;
+        }
+
+        /* Floating circles */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: floatCircle 10s ease-in-out infinite;
+            opacity: 19;
+        }
+
+        .circle.small {
+            width: 40px;
+            height: 40px;
+            top: 30%;
+            left: 10%;
+            animation-duration: 7s;
+            animation-delay: 0s;
+        }
+
+        .circle.medium {
+            width: 70px;
+            height: 70px;
+            top: 60%;
+            left: 80%;
+            animation-duration: 10s;
+            animation-delay: 2s;
+        }
+
+        .circle.large {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 50%;
+            animation-duration: 15s;
+            animation-delay: 4s;
+        }
+
+        @keyframes floatCircle {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-200px) scale(1.8); }
+            100% { transform: translateY(0) scale(1.2); }
+        }
+
+        /* New floating square */
+        .square {
+            position: absolute;
+            background: rgba(0, 191, 255, 0.1); /* Aqua background for the square */
+            animation: floatSquare 8s ease-in-out infinite, rotateSquare 8s linear infinite;
+            opacity: 19;
+            border-radius: 15px;
+        }
+
+        .square.small {
+            width: 30px;
+            height: 30px;
+            bottom: 10%;
+            right: 20%;
+            animation-duration: 6s;
+            animation-delay: 1s;
+        }
+
+        .square.medium {
+            width: 80px;
+            height: 80px;
+            top: 70%;
+            right: 40%;
+            animation-duration: 10s;
+            animation-delay: 0.1s;
+        }
+
+        @keyframes floatSquare {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-50px) translateX(30px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        @keyframes rotateSquare {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* New floating triangle */
+        .triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 40px solid rgba(0, 191, 255, 0.2); /* Aqua triangle */
+            animation: floatTriangle 12s ease-in-out infinite, rotateTriangle 12s linear infinite;
+            opacity: 19;
+        }
+
+        .triangle.small {
+            bottom: 50px;
+            left: 30%;
+            animation-duration: 7s;
+            animation-delay: 3s;
+        }
+
+        .triangle.large {
+            bottom: 150px;
+            right: 60%;
+            animation-duration: 14s;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes floatTriangle {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-40px) scale(1.9); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        @keyframes rotateTriangle {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Bouncing ball animation */
+        .ball {
+            position: absolute;
+            bottom: 5%;
+            right: 10%;
+            width: 30px;
+            height: 30px;
+            background-color: #1e90ff; /* Light blue ball */
+            border-radius: 50%;
+            animation: bounceBall 3s ease-in-out infinite;
+        }
+
+        @keyframes bounceBall {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-100px); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Login</h1>
+    <form id="form1" name="form1" method="post" action="/myapp/login_post/">
+        {% csrf_token %}
+        <label for="textfield">Username</label>
+        <input type="text" name="textfield" id="textfield" />
+
+        <label for="textfield2">Password</label>
+        <input type="password" name="textfield2" id="textfield2" />
+
+        <input type="submit" name="button" id="button" value="Submit" />
+
+        <a href="/myapp/acd_signup/">New academy? Signup</a>
+    </form>
+
+    <!-- Floating objects for animation -->
+    <div class="circle small"></div>
+    <div class="circle medium"></div>
+    <div class="circle large"></div>
+    <div class="square small"></div>
+    <div class="square medium"></div>
+    <div class="triangle small"></div>
+    <div class="triangle large"></div>
+
+    <!-- Bouncing ball animation -->
+    <div class="ball"></div>
+
+</body>
+</html>

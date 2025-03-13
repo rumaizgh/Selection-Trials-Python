@@ -1,0 +1,74 @@
+{#<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">#}
+{#<html xmlns="http://www.w3.org/1999/xhtml">#}
+{#<head>#}
+{#<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />#}
+{#<title>Untitled Document</title>#}
+{#</head>#}
+{##}
+{#<body>#}
+{% extends 'Academy/home_index.html' %}
+{% block body %}
+
+<form action="" method="post" enctype="multipart/form-data" name="form1" id="form1"><table width="200" border="1">
+  {% csrf_token %}
+    <tr>
+    <td width="65">Name</td>
+    <td>{{ htmldata.name }}
+     </td>
+  </tr>
+  <tr>
+    <td>Place</td>
+    <td>{{ htmldata.place }}</td>
+  </tr>
+  <tr>
+    <td>District</td>
+    <td>{{ htmldata.district }}
+     </td>
+  </tr>
+    <tr>
+        <td>Logo</td>
+        <td><img src="{{ htmldata.logo }}" height="100px" width="100px" ></td>
+    </tr>
+  <tr>
+    <td>State</td>
+    <td>{{ htmldata.state }}
+      </td>
+  </tr>
+  <tr>
+    <td>Nationality</td>
+    <td>{{ htmldata.country }}</td>
+  </tr>
+  <tr>
+    <td>Phone No</td>
+    <td>{{ htmldata.phone }}</td>
+  </tr>
+  <tr>
+    <td>Email ID</td>
+    <td>{{ htmldata.email }}</td>
+  </tr>
+  <tr>
+    <td>Website</td>
+    <td>{{ htmldata.website }}</td>
+  </tr>
+  <tr>
+    <td>Insta ID</td>
+    <td>{{ htmldata.insta_id }}</td>
+  </tr>
+  <tr>
+    <td>Since</td>
+    <td>{{ htmldata.since }}</td>
+  </tr>
+  <tr>
+    <td>Proof</td>
+    <td><img src="{{ htmldata.proof }}" width="100px" height="100px"></td>
+  </tr>
+  
+</table>
+
+</form>
+<p><a href="/myapp/acd_edit_profile/{{ htmldata.id }}">Edit Profile</a></p>
+
+{% endblock %}
+{#</body>#}
+{#</html>#}
+

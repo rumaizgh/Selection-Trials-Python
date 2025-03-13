@@ -1,0 +1,67 @@
+{#<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">#}
+{#<html xmlns="http://www.w3.org/1999/xhtml">#}
+{#<head>#}
+{#<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />#}
+{#<title>Untitled Document</title>#}
+{#</head>#}
+{##}
+{#<body>#}
+{% extends 'Academy/home_index.html' %}
+{% block body %}
+<form action="/myapp/acd_view_attended_players_post/" method="post">
+{% csrf_token %}
+<table class="px fa-pull-left">
+<tr>
+      <td><input type="text" name="textfield" required="" /></td>
+      <td>  <input type="submit" name="button" class="btn btn-success" id="button" value="Search" />
+
+</td>
+
+    </tr>
+
+</table>
+ <br>
+    <br>
+<table class="table table-bordered">
+  <tr>
+    <td>Sl No</td>
+    <td>Date</td>
+    <td>Player name</td>
+    <td>DOB</td>
+    <td>Gender</td>
+    <td>Height</td>
+    <td>Weight</td>
+    <td>Address</td>
+    <td>City/Place</td>
+    <td>State</td>
+    <td>Nationality</td>
+    <td>Email</td>
+    <td>Phone No</td>
+  </tr>
+    {% for i in htmldata %}
+  <tr>
+    <td>&nbsp;{{ forloop.counter }}</td>
+    <td>{{ i.date }}&nbsp;</td>
+    <td>{{ i.PLAYER.name }} </td>
+    <td>&nbsp;{{ i.PLAYER.dob }}</td>
+    <td>&nbsp;{{ i.PLAYER.gender }}</td>
+    <td>{{ i.PLAYER.height }}</td>
+    <td>&nbsp;{{ i.PLAYER.weight }}</td>
+    <td>{{ i.PLAYER.hname }}<br>{{ i.PLAYER.place }}</td>
+    <td>{{ i.PLAYER.city }}</td>
+    <td>&nbsp;{{ i.PLAYER.state }}</td>
+    <td>&nbsp;{{ i.PLAYER.country }}</td>
+    <td>&nbsp;{{ i.PLAYER.email }}</td>
+    <td>{{ i.PLAYER.phone }}</td>
+  <td><p><a href="/myapp/acd_shortlist_players/{{ i.id }}">Shortlist</a></p></td>
+      <td><p><a href="/myapp/chat/{{ i.PLAYER.LOGIN.id }}">Chat</a></p></td>
+
+
+  </tr>
+    {% endfor %}
+</table>
+</form>
+
+{% endblock %}
+{#</body>#}
+{#</html>#}

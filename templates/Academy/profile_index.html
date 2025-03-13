@@ -1,0 +1,185 @@
+
+<html>
+{% extends 'Academy/home_index.html' %}
+{% block body %}
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <style>
+        body {
+    background-color: purple;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
+}
+
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+.wow{
+    background-color: wheat;
+    border-radius: 10px;
+}
+
+.profile-button:hover {
+    background: #682773
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}
+    </style>
+    
+</head>
+
+<div class="container rounded bg-white mt-5 mb-5" >
+    <div class="row" >
+    <!-- Left Side (Profile Picture & Basic Info) -->
+    <div class="col-md-6 border-right">
+        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+            <img class="rounded-circle mt-5" src="{{ htmldata.logo }}" height="200px" width="200px" >
+            <span class="font-weight-bold"><h3>{{ htmldata.name }} Academy</h3></span>
+<span class="text-black-50">
+    <a href="mailto:sportsacademy@gmail.com" class="text-black-50">sportsacademy@gmail.com</a>
+</span>
+        </div>
+    </div>
+
+    <!-- Right Side (Profile Fields) -->
+    <div class="col-md-6">
+        <div class="wow">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Details</h4>
+                </div>
+
+                <!-- Row 1: Name, Place -->
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label class="labels">Name</label>
+                        <p class="form-control">{{ htmldata.name }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Place</label>
+                        <p class="form-control">{{ htmldata.place }}</p>
+                    </div>
+                </div>
+
+                <!-- Row 2: District, State -->
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label class="labels">District</label>
+                        <p class="form-control">{{ htmldata.district }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">State</label>
+                        <p class="form-control">{{ htmldata.state }}</p>
+                    </div>
+                </div>
+
+                <!-- Row 3: Nationality, Phone Number -->
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label class="labels">Nationality</label>
+                        <p class="form-control">{{ htmldata.country }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Phone Number</label>
+                        <p class="form-control">{{ htmldata.phone }}</p>
+                    </div>
+                </div>
+
+                <!-- Row 4: Email ID, Website -->
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label class="labels">Email ID</label>
+                        <p class="form-control">{{ htmldata.email }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Website</label>
+                        <p class="form-control">{{ htmldata.website }}</p>
+                    </div>
+                </div>
+
+                <!-- Row 5: Instagram ID, Since -->
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label class="labels">Instagram ID</label>
+                        <p class="form-control">{{ htmldata.insta_id }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Since</label>
+                        <p class="form-control">{{ htmldata.since }}</p>
+                    </div>
+                </div>
+
+                <!-- Row 6: File Upload for Proof -->
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label class="labels">Proof Document</label>
+                        <img src="{{ htmldata.proof }}" width="100px" height="50px">
+                    </div>
+                </div>
+                <br>
+                <br>
+                <center>
+                    <a href="/myapp/acd_edit_profile/{{ htmldata.id }}"
+                       style="
+                            display: inline-block;
+                            background-color: #007bff;
+                            color: white;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            font-size: 16px;
+                            font-weight: bold;
+                            text-align: center;
+                            text-decoration: none;
+                            cursor: pointer;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                            transition: all 0.3s ease;">
+                        Edit Profile
+                    </a>
+                </center>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+{% endblock %}
+</html>

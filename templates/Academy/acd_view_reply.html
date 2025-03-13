@@ -1,0 +1,50 @@
+{#<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">#}
+{#<html xmlns="http://www.w3.org/1999/xhtml">#}
+{#<head>#}
+{#<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />#}
+{#<title>Untitled Document</title>#}
+{#</head>#}
+{##}
+{#<body>#}
+{% extends 'Academy/home_index.html' %}
+{% block body %}
+<form id="form3" name="form3" method="post" action="/myapp/acd_view_reply_post/">
+    {% csrf_token %}
+  <table class="px fa-pull-left">
+<tr>
+      <th scope="row">From</th>
+      <td>
+      <input type="date" name="textfield" id="textfield" class="form-control" required=""/></td>
+      <td>To</td>
+      <td>
+      <input type="date" name="textfield2" id="textfield2"  class="form-control" required=""/></td>
+      <td>  <input type="submit" name="button" class="btn btn-success" id="button" value="Search" />
+</td>
+    </tr>
+</table>
+<br>
+<br>
+
+</form>
+<p>&nbsp;</p>
+<table class="table table-bordered">
+  <tr>
+    <td>Sl No</td>
+    <td>Reply</td>
+    <td>Date</td>
+    <td>Complaint</td>
+  </tr>
+    {% for i in htmldata %}
+  <tr>
+    <td>{{ forloop.counter }}&nbsp;</td>
+    <td>{{ i.reply }}&nbsp;</td>
+    <td>{{ i.date }}&nbsp;</td>
+    <td>{{ i.complaint }}</td>
+  </tr>
+    {% endfor %}
+</table>
+
+
+{% endblock %}
+{#</body>#}
+{#</html>#}

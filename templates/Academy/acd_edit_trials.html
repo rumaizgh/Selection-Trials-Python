@@ -1,0 +1,48 @@
+{#<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">#}
+{#<html xmlns="http://www.w3.org/1999/xhtml">#}
+{#<head>#}
+{#<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />#}
+{#<title>Untitled Document</title>#}
+{#</head>#}
+{##}
+{#<body>#}
+{% extends 'Academy/home_index.html' %}
+{% block body %}
+<form id="form1" name="form1" action="/myapp/acd_edit_trials_post/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table table-bordered">
+  <tr><input type="hidden" value="{{ htmldata.id }}" name="uid">
+    <td>Game</td>
+    <td><label for="textfield"></label>
+      <input type="text" name="textfield" value="{{ htmldata.GAME.name }}" id="textfield" /></td>
+  </tr>
+  <tr>
+    <td>Due Date </td>
+    <td><label for="textfield2"></label>
+      <input type="date" name="textfield2" value="{{ htmldata.date | date:'Y-m-d' }}"  id="textfield2" re /></td>
+  </tr>
+  <tr>
+    <td>Venue</td>
+    <td><input type="text" name="textfield3" value="{{ htmldata.venue }}" id="textfield3" /></td>
+  </tr>
+  <tr>
+    <td>Age</td>
+    <td><input type="text" name="textfield4" value="{{ htmldata.age }}" id="textfield4" /></td>
+  </tr>
+  <tr>
+    <td height="67">Description</td>
+    <td><input type="text" name="textfield5" value="{{ htmldata.description }}" id="textfield5" /></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+          <input type="submit" class="btn btn-success" name="button" id="button" value="Submit" />
+
+    </td>
+  </tr>
+</table>
+
+</form>
+{% endblock %}
+{#</body>#}
+{#</html>#}
