@@ -180,6 +180,9 @@ urlpatterns = [
 
     path('ply_view_certificate_of_coach/', views.ply_view_certificate_of_coach),
 
+    path('ply_view_tips/', views.ply_view_tips),
+
+
 
     # -------------------FLUTTER---------------------------------------
 

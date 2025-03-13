@@ -960,6 +960,20 @@ def ply_view_certificate_of_coach(request):
 
     return JsonResponse({"status": "ok", 'data': l})
 
+def ply_view_tips(request):
+    tip_obj = Tips.objects.all()
+    l = []
+
+    for i in tip_obj:
+        l.append({
+            "tip_title": i.tip_title,
+            "tip_description": i.tip_description,
+            "tip_of": i.COACH.name,
+            "id": i.id,
+
+        })
+
+    return JsonResponse({"status": "ok", "data": l})
 
 
 #----------------Chat with Coach----------------#
