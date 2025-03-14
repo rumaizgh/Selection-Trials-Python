@@ -186,6 +186,8 @@ urlpatterns = [
 
     path('ply_send_review_about_academy/', views.ply_send_review_about_academy),
 
+    path('ply_view_achievement_of_coach/', views.ply_view_achievement_of_coach),
+
 
 
     # -------------------FLUTTER---------------------------------------

@@ -1008,6 +1008,19 @@ def ply_send_review_about_academy(request):
 
     return JsonResponse({"status": "ok"})
 
+def ply_view_achievement_of_coach(request):
+    data = Achievements.objects.all()
+    l = []
+    for i in data:
+        l.append({
+            "id": i.id,
+            "coach_name": i.COACH.name,
+            "achievement": i.achievement,
+            "event": i.event,
+
+        })
+
+    return JsonResponse({"status": "ok", 'data': l})
 
 #----------------Chat with Coach----------------#
 
