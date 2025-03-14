@@ -225,7 +225,7 @@ def adm_view_complaints_sent_reply_post(request):
     l = []
     for i in data:
         ll = Login.objects.get(id=i.LOGIN.id)
-        if ll.type == "Coach":
+        if ll.type == "coach":
             name = Coach.objects.get(LOGIN_id=i.LOGIN.id).name
             l.append({
                 "id": i.id,
@@ -992,6 +992,21 @@ def ply_view_experience(request):
 
     return JsonResponse({"status": "ok", "data": l})
 
+def ply_send_review_about_academy(request):
+    review = request.POST['review']
+    rating = request.POST['rating']
+
+    lid = request.POST['lid']
+
+    rev_obj = Reviews()
+    rev_obj.date = datetime.today()
+    rev_obj.LOGIN_id = lid
+    rev_obj.review = review
+    rev_obj.rating = rating
+
+    rev_obj.save()
+
+    return JsonResponse({"status": "ok"})
 
 
 #----------------Chat with Coach----------------#
@@ -1355,7 +1370,7 @@ def coc_edit_experience_get(request):
 
 def coc_view_reply(request):
     lid = request.POST['lid']
-    comp_obj = Complaint.objects.all()
+    comp_obj = Complaint.objects.filter(LOGIN_id=lid)
     l = []
 
     for i in comp_obj:
