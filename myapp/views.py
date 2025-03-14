@@ -1445,16 +1445,31 @@ def coc_view_tips(request):
 def coc_add_achievement(request):
     achievement = request.POST['achievement']
     event = request.POST['event']
+    lid = request.POST['lid']
 
     achievement_obj=Achievements()
 
     achievement_obj.achievement=achievement
     achievement_obj.event=event
+    achievement_obj.COACH_id=lid
 
     achievement_obj.save()
 
     return JsonResponse({'status':'ok'})
 
+def coc_view_achievement(request):
+    ach_obj = Achievements.objects.all()
+    l = []
+
+    for i in ach_obj:
+        l.append({
+            "achievement": i.achievement,
+            "event": i.event,
+            "id": i.id,
+
+        })
+
+    return JsonResponse({"status": "ok", "data": l})
 
 
 #----------------Chat with Player----------------#

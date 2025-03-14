@@ -223,6 +223,10 @@ urlpatterns = [
 
     path('coc_view_tips/', views.coc_view_tips),
 
+    path('coc_add_achievement/', views.coc_add_achievement),
+
+    path('coc_view_achievement/', views.coc_view_achievement),
+
 
 
 ]
