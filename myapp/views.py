@@ -975,6 +975,24 @@ def ply_view_tips(request):
 
     return JsonResponse({"status": "ok", "data": l})
 
+def ply_view_experience(request):
+    exp_obj = Experience.objects.all()
+    l = []
+
+    for i in exp_obj:
+        l.append({
+            "academy_name": i.academy_name,
+            "from_year": i.from_year,
+            "to_year": i.to_year,
+            "position": i.position,
+            "exp_of": i.COACH.username,
+            "id": i.id,
+
+        })
+
+    return JsonResponse({"status": "ok", "data": l})
+
+
 
 #----------------Chat with Coach----------------#
 

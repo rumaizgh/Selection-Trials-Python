@@ -182,6 +182,8 @@ urlpatterns = [
 
     path('ply_view_tips/', views.ply_view_tips),
 
+    path('ply_view_experience/', views.ply_view_experience),
+
 
 
     # -------------------FLUTTER---------------------------------------
