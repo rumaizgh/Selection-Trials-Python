@@ -1151,6 +1151,24 @@ def ply_view_chat_acd(request):
 #----------------Coach----------------#
 
 
+def coc_change_password(request):
+    current_password = request.POST['current_pass']
+    new_password = request.POST['new_pass']
+    confirm_password = request.POST['confirm_pass']
+    lid=request.POST['lid']
+
+    loginobj = Login.objects.filter(id=lid, password=current_password)
+
+    if loginobj.exists():
+        if new_password==confirm_password:
+            Login.objects.filter(id=lid, password=current_password).update(password=new_password)
+            return JsonResponse({'status':'ok'})
+        else:
+            return JsonResponse({'status':'ok'})
+    else:
+        return JsonResponse({'status':'ok'})
+
+
 def coc_signup(request):
     name = request.POST['name']
     dob = request.POST['dob']
@@ -1408,6 +1426,8 @@ def coc_add_achievement(request):
     achievement_obj.save()
 
     return JsonResponse({'status':'ok'})
+
+
 
 #----------------Chat with Player----------------#
 

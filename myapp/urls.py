@@ -191,6 +191,8 @@ urlpatterns = [
 
     path('coc_signup/', views.coc_signup),
 
+    path('coc_change_password/', views.coc_change_password),
+
     path('coc_view_profile/', views.coc_view_profile),
 
     path('coc_edit_profile/', views.coc_edit_profile),
