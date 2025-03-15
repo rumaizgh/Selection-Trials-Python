@@ -1444,6 +1444,32 @@ def coc_view_tips(request):
 
     return JsonResponse({"status": "ok", "data": l})
 
+def coc_edit_tips(request):
+    tip_title = request.POST['tip_title']
+    tip_description = request.POST['tip_description']
+    lid = request.POST['lid']
+
+    tip_obj = Tips.objects.get(id=lid)
+
+    tip_obj.tip_title=tip_title
+    tip_obj.tip_description=tip_description
+
+    tip_obj.save()
+
+    return JsonResponse({"status":"ok"})
+
+def coc_edit_tips_get(request):
+    lid = request.POST['lid']
+    print(lid,"lllllllllllllllll")
+
+    i = Tips.objects.get(id=lid)
+
+    return JsonResponse({"status": "ok",
+                         "tip_title": i.tip_title,
+                         "tip_description": i.tip_description,
+                         })
+
+
 def coc_add_achievement(request):
     achievement = request.POST['achievement']
     event = request.POST['event']
@@ -1497,6 +1523,29 @@ def coc_edit_achievement_get(request):
                          "achievement": i.achievement,
                          "event": i.event,
                          })
+
+def coc_add_certificate(request):
+    certificate_type = request.POST['certificate_type']
+    file = request.POST['file']
+    lid = request.POST['lid']
+
+    from datetime import datetime
+    import base64
+    dt=datetime.today()
+    a=base64.b64decode(file)
+    fs=open("D:\\Rumaiz Codes\\Rumaiz Flutter\\Project Ultra\\Project Ultra\\Selection_Trails Pycharm\\media\\"+dt+".jpg","wb")
+    path='/media/'+dt+".jpg"
+    fs.write(a)
+    fs.close()
+
+    cert_type = Certificates()
+    cert_type.certificate_type = certificate_type
+    cert_type.date = dt
+    cert_type.COACH = Coach.objects.get(LOGIN=lid)
+    cert_type.file = path
+    cert_type.save()
+
+    return JsonResponse({"status": "ok"})
 
 #----------------Chat with Player----------------#
 
