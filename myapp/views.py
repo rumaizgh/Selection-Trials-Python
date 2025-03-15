@@ -1578,24 +1578,44 @@ def coc_add_certificate(request):
     certificate_type = request.POST['certificate_type']
     file = request.POST['file']
     lid = request.POST['lid']
+    cert_obj = Certificates()
 
-    from datetime import datetime
     import base64
-    dt=datetime.today()
-    a=base64.b64decode(file)
-    fs=open("D:\\Rumaiz Codes\\Rumaiz Flutter\\Project Ultra\\Project Ultra\\Selection_Trails Pycharm\\media\\"+dt+".jpg","wb")
-    path='/media/'+dt+".jpg"
-    fs.write(a)
-    fs.close()
+    dt = datetime.now().strftime('%Y-%m-%d')
+    a = base64.b64decode(file)
+    ftime = open(
+        "D:\\Rumaiz Codes\\Rumaiz Flutter\\Project Ultra\\Project Ultra\\Selection_Trails Pycharm\\media\\" + dt + ".jpg",
+        "wb")
+    path = "/media/" + dt + ".jpg"
+    ftime.write(a)
+    ftime.close()
+    cert_obj.file = path
 
-    cert_type = Certificates()
-    cert_type.certificate_type = certificate_type
-    cert_type.date = dt
-    cert_type.COACH = Coach.objects.get(LOGIN=lid)
-    cert_type.file = path
-    cert_type.save()
+    cert_obj.certificate_type = certificate_type
+    cert_obj.COACH = Coach.objects.get(LOGIN_id=lid)
+    cert_obj.date = dt
+    cert_obj.save()
 
     return JsonResponse({"status": "ok"})
+
+def coc_view_certificate(request):
+    lid = request.POST['lid']
+    cert_obj = Certificates.objects.all()
+
+    l = []
+
+    for i in cert_obj:
+        l.append({
+            "certificate_type": i.certificate_type,
+            "file": i.file,
+            "coc_name": i.COACH.name,
+            "date": i.date,
+            "id": i.id,
+
+        })
+
+    return JsonResponse({"status": "ok", "data": l})
+
 
 def coc_view_reviews(request):
     rev_obj = Reviews.objects.all()
