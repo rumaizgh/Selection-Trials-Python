@@ -168,12 +168,12 @@ def adm_view_approved_coaches_post(request):
 
 def adm_approve_coaches(request,id):
     Coach.objects.filter(LOGIN_id=id).update(status='Approved')
-    Login.objects.filter(id=id).update(type='Coach')
+    Login.objects.filter(id=id).update(type='coach')
     return HttpResponse('''<script>alert("Coach Approved!!");window.location='/myapp/adm_view_coach_approve_reject/'</script>''')
 
 def adm_reject_coaches(request,id):
     Coach.objects.filter(LOGIN_id=id).update(status='Rejected')
-    Login.objects.filter(id=id).update(type='Coach')
+    Login.objects.filter(id=id).update(type='coach')
     return HttpResponse('''<script>alert("Coach Rejected!!");window.location='/myapp/adm_view_coach_approve_reject/'</script>''')
 
 
@@ -186,7 +186,7 @@ def adm_view_complaints_sent_reply(request):
     l=[]
     for i in data:
         ll=Login.objects.get(id=i.LOGIN.id)
-        if ll.type == "Coach":
+        if ll.type == "coach":
             name=Coach.objects.get(LOGIN_id=i.LOGIN.id).name
             l.append({
                 "id":i.id,
