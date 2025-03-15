@@ -1010,6 +1010,24 @@ def ply_send_review_about_academy(request):
 
     return JsonResponse({"status": "ok"})
 
+def ply_send_review_about_coach(request):
+    review = request.POST['review']
+    rating = request.POST['rating']
+
+    lid = request.POST['lid']
+    a_login_id = request.POST['aid']
+
+    rev_obj = Reviews()
+    rev_obj.date = datetime.today()
+    rev_obj.LOGIN_id = a_login_id
+    rev_obj.PLAYER = Player.objects.get(LOGIN_id=lid)
+    rev_obj.review = review
+    rev_obj.rating = rating
+
+    rev_obj.save()
+
+    return JsonResponse({"status": "ok"})
+
 def ply_view_achievement_of_coach(request):
     data = Achievements.objects.all()
     l = []

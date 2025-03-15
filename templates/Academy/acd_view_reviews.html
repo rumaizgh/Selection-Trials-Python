@@ -30,7 +30,7 @@
       <td>Review</td>
       <td>Date</td>
       <td>Rating</td>
-      <td>Player/Coach</td>
+      <td>Player Name</td>
     </tr>
       {% for i in htmldata %}
     <tr>
@@ -38,7 +38,7 @@
       <td>&nbsp;{{ i.review }}</td>
       <td>&nbsp;{{ i.date }}</td>
       <td>&nbsp;{{ i.rating }}</td>
-      <td>&nbsp;{{ i.LOGIN.type }}</td>
+      <td>&nbsp;{{ i.PLAYER.name }}</td>
     </tr>
       {% endfor %}
   </table>
