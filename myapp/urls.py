@@ -190,6 +190,10 @@ urlpatterns = [
 
     path('ply_view_achievement_of_coach/', views.ply_view_achievement_of_coach),
 
+    path('ply_send_complaint/', views.ply_send_complaint),
+
+    path('ply_view_reply/', views.ply_view_reply),
+
 
 
     # -------------------FLUTTER---------------------------------------

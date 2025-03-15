@@ -206,7 +206,7 @@ def adm_view_complaints_sent_reply(request):
                 "status": i.status,
                 "name": name
             })
-        elif ll.type=="Player":
+        elif ll.type=="player":
             name = Player.objects.get(LOGIN_id=i.LOGIN.id).name
             l.append({
                 "id": i.id,
@@ -245,7 +245,7 @@ def adm_view_complaints_sent_reply_post(request):
                 "status": i.status,
                 "name": name
             })
-        elif ll.type == "Player":
+        elif ll.type == "player":
             name = Player.objects.get(LOGIN_id=i.LOGIN.id).name
             l.append({
                 "id": i.id,
@@ -1041,6 +1041,38 @@ def ply_view_achievement_of_coach(request):
         })
 
     return JsonResponse({"status": "ok", 'data': l})
+
+def ply_send_complaint(request):
+    complaint = request.POST['complaint']
+    lid = request.POST['lid']
+
+    comp_obj = Complaint()
+    comp_obj.date = datetime.today()
+    comp_obj.LOGIN_id = lid
+    comp_obj.complaint = complaint
+    comp_obj.status = "pending"
+
+    comp_obj.save()
+
+    return JsonResponse({"status": "ok"})
+
+def ply_view_reply(request):
+    lid = request.POST['lid']
+    comp_obj = Complaint.objects.filter(LOGIN_id=lid)
+    l = []
+
+    for i in comp_obj:
+        l.append({
+            "date": i.date,
+            "complaint": i.complaint,
+            "status": i.status,
+            "reply": i.reply,
+            "id": i.id,
+
+        })
+
+    return JsonResponse({"status": "ok", "data": l})
+
 
 #----------------Chat with Coach----------------#
 
