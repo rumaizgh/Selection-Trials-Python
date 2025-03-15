@@ -997,10 +997,12 @@ def ply_send_review_about_academy(request):
     rating = request.POST['rating']
 
     lid = request.POST['lid']
+    a_login_id = request.POST['aid']
 
     rev_obj = Reviews()
     rev_obj.date = datetime.today()
-    rev_obj.LOGIN_id = lid
+    rev_obj.LOGIN_id = a_login_id
+    rev_obj.PLAYER = Player.objects.get(LOGIN_id=lid)
     rev_obj.review = review
     rev_obj.rating = rating
 
@@ -1471,6 +1473,30 @@ def coc_view_achievement(request):
 
     return JsonResponse({"status": "ok", "data": l})
 
+def coc_edit_achievement(request):
+    achievement = request.POST['achievement']
+    event = request.POST['event']
+    lid = request.POST['lid']
+
+    ach_obj = Achievements.objects.get(id=lid)
+
+    ach_obj.achievement=achievement
+    ach_obj.event=event
+
+    ach_obj.save()
+
+    return JsonResponse({"status":"ok"})
+
+def coc_edit_achievement_get(request):
+    lid = request.POST['lid']
+    print(lid,"lllllllllllllllll")
+
+    i = Achievements.objects.get(id=lid)
+
+    return JsonResponse({"status": "ok",
+                         "achievement": i.achievement,
+                         "event": i.event,
+                         })
 
 #----------------Chat with Player----------------#
 
