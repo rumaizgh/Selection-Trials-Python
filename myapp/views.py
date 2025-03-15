@@ -1565,6 +1565,23 @@ def coc_add_certificate(request):
 
     return JsonResponse({"status": "ok"})
 
+def coc_view_reviews(request):
+    rev_obj = Reviews.objects.all()
+    l = []
+
+    for i in rev_obj:
+        l.append({
+            "review": i.review,
+            "rating": i.rating,
+            "date": i.date,
+            "player": i.PLAYER.name,
+            "id": i.id,
+
+        })
+
+    return JsonResponse({"status": "ok", "data": l})
+
+
 #----------------Chat with Player----------------#
 
 
