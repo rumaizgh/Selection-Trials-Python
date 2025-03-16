@@ -1275,7 +1275,7 @@ def coc_signup(request):
         import base64
         dt=datetime.now().strftime('%Y%m%d-%H%M%S')
         a=base64.b64decode(photo)
-        ftime=open("C:\\Users\\talen\\OneDrive\\Desktop\\Rumaiz Flutter\\Project Ultra\\Project Ultra\\Selection_Trails Pycharm\\media\\"+dt+".jpg","wb")
+        ftime=open("D:\\Rumaiz Codes\\Rumaiz Flutter\\Project Ultra\\Project Ultra\\Selection_Trails Pycharm\\\media\\"+dt+".jpg","wb")
         path="/media/"+dt+".jpg"
         ftime.write(a)
         ftime.close()
@@ -1596,7 +1596,9 @@ def coc_add_certificate(request):
     return JsonResponse({"status": "ok"})
 
 def coc_view_certificate(request):
-    cert_obj = Certificates.objects.all()
+    lid=request.POST['lid']
+    coc_obj=Coach.objects.get(LOGIN_id=lid)
+    cert_obj = Certificates.objects.filter(COACH_id=coc_obj)
 
     l = []
 
@@ -1604,7 +1606,6 @@ def coc_view_certificate(request):
         l.append({
             "certificate_type": i.certificate_type,
             "photo": i.file,
-            "coc_name": i.COACH.name,
             "date": i.date,
             "id": i.id,
 
