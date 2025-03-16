@@ -626,7 +626,7 @@ def acd_view_reviews(request) :
 def acd_view_reviews_post(request) :
     searchFrom = request.POST['textfield']
     searchTo = request.POST['textfield2']
-    data = Trials.objects.filter(date__range=[searchFrom, searchTo])
+    data = Reviews.objects.filter(date__range=[searchFrom, searchTo])
     return render(request, "Academy/acd_view_reviews.html", {'htmldata': data})
 
 
@@ -1579,9 +1579,8 @@ def coc_add_certificate(request):
     file = request.POST['file']
     lid = request.POST['lid']
     cert_obj = Certificates()
-
     import base64
-    dt = datetime.now().strftime('%Y-%m-%d')
+    dt = datetime.now().strftime('%Y%m%d-%H%M%S')
     a = base64.b64decode(file)
     ftime = open(
         "D:\\Rumaiz Codes\\Rumaiz Flutter\\Project Ultra\\Project Ultra\\Selection_Trails Pycharm\\media\\" + dt + ".jpg",
@@ -1590,16 +1589,13 @@ def coc_add_certificate(request):
     ftime.write(a)
     ftime.close()
     cert_obj.file = path
-
     cert_obj.certificate_type = certificate_type
     cert_obj.COACH = Coach.objects.get(LOGIN_id=lid)
-    cert_obj.date = dt
+    cert_obj.date = datetime.today()
     cert_obj.save()
-
     return JsonResponse({"status": "ok"})
 
 def coc_view_certificate(request):
-    lid = request.POST['lid']
     cert_obj = Certificates.objects.all()
 
     l = []
@@ -1607,7 +1603,7 @@ def coc_view_certificate(request):
     for i in cert_obj:
         l.append({
             "certificate_type": i.certificate_type,
-            "file": i.file,
+            "photo": i.file,
             "coc_name": i.COACH.name,
             "date": i.date,
             "id": i.id,

@@ -98,7 +98,7 @@ class Reviews(models.Model):
 class Certificates(models.Model):
     COACH = models.ForeignKey(Coach, on_delete=models.CASCADE)
     certificate_type = models.CharField(max_length=100)
-    file = models.CharField(max_length=100)
+    file = models.CharField(max_length=500)
     date = models.DateField()
 
 class Achievements(models.Model):
