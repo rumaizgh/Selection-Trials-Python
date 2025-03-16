@@ -245,6 +245,10 @@ urlpatterns = [
 
     path('coc_view_certificate/', views.coc_view_certificate),
 
+    path('coc_edit_certificate/', views.coc_edit_certificate),
+
+    path('coc_edit_certificate_get/', views.coc_edit_certificate_get),
+
     path('coc_view_reviews/', views.coc_view_reviews),
 
 

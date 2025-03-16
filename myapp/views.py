@@ -735,7 +735,7 @@ def ply_signup(request):
     l=Login()
     l.username=email
     l.password=password
-    l.type='pending'
+    l.type='player'
     l.save()
 
     if password==confirm_password:
@@ -743,7 +743,7 @@ def ply_signup(request):
         import base64
         dt=datetime.now().strftime('%Y%m%d-%H%M%S')
         a=base64.b64decode(photo)
-        ftime=open("C:\\Users\\talen\\OneDrive\\Desktop\\Rumaiz Flutter\\Project Ultra\\Project Ultra\\Selection_Trails Pycharm\\media\\"+dt+".jpg","wb")
+        ftime=open("D:\\Rumaiz Codes\\Rumaiz Flutter\\Project Ultra\\Project Ultra\\Selection_Trails Pycharm\\media\\"+dt+".jpg","wb")
         path="/media/"+dt+".jpg"
         ftime.write(a)
         ftime.close()
@@ -1481,7 +1481,8 @@ def coc_add_tips(request):
 
 
 def coc_view_tips(request):
-    tip_obj = Tips.objects.all()
+    lid = request.POST['lid']
+    tip_obj = Tips.objects.filter(COACH_id=lid)
     l = []
 
     for i in tip_obj:
@@ -1613,9 +1614,50 @@ def coc_view_certificate(request):
 
     return JsonResponse({"status": "ok", "data": l})
 
+def coc_edit_certificate(request):
+    photo = request.POST['photo']
+    certificate_type = request.POST['certificate_type']
+    lid = request.POST['lid']
+
+    cert_obj = Certificates.objects.get(id=lid)
+
+    if len(photo) > 0:
+        from datetime import datetime
+        import base64
+
+        dt = datetime.now().strftime('%Y%m%d%H%M%S')
+        a = base64.b64decode(photo)
+        fs = open("D:\\Rumaiz Codes\\Rumaiz Flutter\\Project Ultra\\Project Ultra\\Selection_Trails Pycharm\\\media\\" + dt + ".jpg",
+                  "wb")
+        path = '/media/' + dt + ".jpg"
+        fs.write(a)
+        fs.close()
+        cert_obj.photo = path
+        cert_obj.save()
+
+
+
+    cert_obj.certificate_type = certificate_type
+
+    cert_obj.save()
+
+    return JsonResponse({"status": "ok"})
+
+
+def coc_edit_certificate_get(request):
+    lid = request.POST['lid']
+
+    i = Certificates.objects.filter(COACH_id=lid)
+
+    return JsonResponse({"status": "ok",
+                         "certificate_type": i.certificate_type,
+                         "photo": i.file,
+                         })
+
 
 def coc_view_reviews(request):
-    rev_obj = Reviews.objects.all()
+    lid=request.POST['lid']
+    rev_obj = Reviews.objects.filter(LOGIN_id=lid)
     l = []
 
     for i in rev_obj:
