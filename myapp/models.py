@@ -121,7 +121,6 @@ class Tips(models.Model):
 class Video(models.Model):
     COACH = models.ForeignKey(Coach, on_delete=models.CASCADE)
     date = models.DateField()
-    GAME = models.ForeignKey(Game, on_delete=models.CASCADE)
     video_title=models.CharField(max_length=20)
     video_file=models.CharField(max_length=100)
     video_details=models.CharField(max_length=200)

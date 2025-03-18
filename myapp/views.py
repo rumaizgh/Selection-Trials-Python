@@ -902,7 +902,7 @@ def ply_view_trial(request):
             "venue": i.venue,
             "description": i.description,
             "age": i.age,
-            "status": i.TRIstatus,
+            "status": i.status,
             "game_name": i.GAME.name,
             "academy_name": i.ACADEMY.name,
         })
@@ -1672,6 +1672,32 @@ def coc_view_reviews(request):
 
     return JsonResponse({"status": "ok", "data": l})
 
+def coc_upload_videos(request):
+    video_file = request.FILES['video_file']
+    video_title = request.POST['video_title']
+    video_details = request.POST['video_details']
+    lid = request.POST['lid']
+
+    vid_obj = Video()
+    from datetime import datetime
+    import base64
+
+    dt = datetime.now().strftime('%Y%m%d%H%M%S')
+    a = base64.b64decode(video_file)
+    fs = open(
+        "D:\\Rumaiz Codes\\Rumaiz Flutter\\Project Ultra\\Project Ultra\\Selection_Trails Pycharm\\\media\\" + dt + ".jpg",
+        "wb")
+    path = '/media/' + dt + ".jpg"
+    fs.write(a)
+    fs.close()
+    vid_obj.video_file = path
+    vid_obj.date = datetime.now().today()
+    vid_obj.video_title = video_title
+    vid_obj.video_details = video_details
+    vid_obj.COACH=Coach.objects.get(LOGIN_id=lid)
+    vid_obj.save()
+
+    return JsonResponse({"status": "ok"})
 
 #----------------Chat with Player----------------#
 

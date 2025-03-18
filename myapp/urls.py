@@ -251,6 +251,8 @@ urlpatterns = [
 
     path('coc_view_reviews/', views.coc_view_reviews),
 
+    path('coc_upload_videos/', views.coc_upload_videos),
+
 
 
 ]
