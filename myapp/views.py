@@ -1667,39 +1667,44 @@ def coc_view_reviews(request):
             "date": i.date,
             "player": i.PLAYER.name,
             "id": i.id,
-
         })
 
     return JsonResponse({"status": "ok", "data": l})
 
 def coc_upload_videos(request):
-    video_file = request.FILES['video_file']
-    video_title = request.POST['video_title']
-    video_details = request.POST['video_details']
+    video_title = request.POST['videotitle']
+    video_details = request.POST['videodetails']
     lid = request.POST['lid']
+    video_file_base64 = request.POST['videofile']  # Get Base64 string from POST data
 
     vid_obj = Video()
     from datetime import datetime
     import base64
 
     dt = datetime.now().strftime('%Y%m%d%H%M%S')
-    a = base64.b64decode(video_file)
+    video_bytes = base64.b64decode(video_file_base64)  # Decode Base64 to bytes
     fs = open(
-        "D:\\Rumaiz Codes\\Rumaiz Flutter\\Project Ultra\\Project Ultra\\Selection_Trails Pycharm\\\media\\" + dt + ".jpg",
+        "D:\\Rumaiz Codes\\Rumaiz Flutter\\Project Ultra\\Project Ultra\\Selection_Trails Pycharm\\media\\" + dt + ".mp4",
         "wb")
-    path = '/media/' + dt + ".jpg"
-    fs.write(a)
+    path = '/media/' + dt + ".mp4"
+    fs.write(video_bytes)
     fs.close()
+
     vid_obj.video_file = path
     vid_obj.date = datetime.now().today()
     vid_obj.video_title = video_title
     vid_obj.video_details = video_details
-    vid_obj.COACH=Coach.objects.get(LOGIN_id=lid)
+    vid_obj.COACH = Coach.objects.get(LOGIN_id=lid)
     vid_obj.save()
 
     return JsonResponse({"status": "ok"})
 
+
+
+
 #----------------Chat with Player----------------#
+
+
 
 
 def coc_sendchat(request):
