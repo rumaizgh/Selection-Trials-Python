@@ -775,7 +775,7 @@ def ply_apply_trial(request):
 
     trialreq_obj=Trial_Request()
 
-    trialreq_obj.TRAIL_id=tid
+    trialreq_obj.TRIALS_id=tid
     trialreq_obj.PLAYER=Player.objects.get(LOGIN=lid)
     trialreq_obj.date=datetime.now().today()
     trialreq_obj.status='pending'
@@ -874,9 +874,7 @@ def ply_edit_profile(request):
     return JsonResponse({'status':'ok'})
 
 
-def ply_view_coach_and_follow(request):
-
-
+def ply_follow_coach(request):
     lid = request.POST['lid']
     cid = request.POST['cid']
 
@@ -891,8 +889,35 @@ def ply_view_coach_and_follow(request):
 
     return JsonResponse({"status": "ok"})
 
+def ply_view_coach_to_follow(request):
+    lid = request.POST['lid']
+    flw_obj = Follow.objects.filter(PLAYER__LOGIN_id=lid).values_list('COACH__id')
+    data = Coach.objects.exclude(id__in=flw_obj)
+    l = []
+    for i in data:
+        l.append({
+            "id": i.id,
+            "name": i.name,
+            "dob": i.dob,
+            "gender": i.gender,
+            "photo": i.photo,
+            "hname": i.h_name,
+            "city": i.city,
+            "place": i.place,
+            "state": i.state,
+            "email": i.email,
+            "country": i.country,
+            "phone": i.phone,
+        })
+    print(l)
+
+    return JsonResponse({"status": "ok", 'data': l})
+
+
 def ply_view_trial(request):
-    data = Trials.objects.all()
+    lid = request.POST['lid']
+    ply_obj=Trial_Request.objects.filter(PLAYER__LOGIN_id=lid).values_list('TRIALS__id')
+    data = Trials.objects.exclude(id__in=ply_obj)
     l = []
     for i in data:
         l.append({
@@ -902,7 +927,6 @@ def ply_view_trial(request):
             "venue": i.venue,
             "description": i.description,
             "age": i.age,
-            "status": i.status,
             "game_name": i.GAME.name,
             "academy_name": i.ACADEMY.name,
         })
@@ -941,6 +965,7 @@ def ply_view_applied_trials(request):
             "id": i.id,
             "date": i.date,
             "status": i.status,
+            "name": i.TRIALS.name,
         })
 
     return JsonResponse({"status": "ok", 'data': l})
@@ -1074,6 +1099,23 @@ def ply_view_reply(request):
     return JsonResponse({"status": "ok", "data": l})
 
 
+def ply_view_video_of_coach(request):
+        vid_obj = Video.objects.all()
+
+        l = []
+
+        for i in vid_obj:
+            l.append({
+                "videotitle": i.video_title,
+                "videodetails": i.video_details,
+                "videofile": i.video_file,
+                "date": i.date,
+                "id": i.id,
+
+            })
+
+        return JsonResponse({"status": "ok", "data": l})
+
 #----------------Chat with Coach----------------#
 
 
@@ -1153,6 +1195,8 @@ def ply_view_chat_academy(request):
         })
 
     return JsonResponse({"status": "ok", 'data': l})
+
+
 #--------------------------------#
 
 
@@ -1616,10 +1660,10 @@ def coc_view_certificate(request):
 
 def coc_edit_certificate(request):
     photo = request.POST['photo']
-    certificate_type = request.POST['certificate_type']
-    lid = request.POST['lid']
+    certificate_type = request.POST['name']
+    id = request.POST['id']
 
-    cert_obj = Certificates.objects.get(id=lid)
+    cert_obj = Certificates.objects.get(id=id)
 
     if len(photo) > 0:
         from datetime import datetime
@@ -1645,12 +1689,12 @@ def coc_edit_certificate(request):
 
 
 def coc_edit_certificate_get(request):
-    lid = request.POST['lid']
+    id = request.POST['id']
 
-    i = Certificates.objects.filter(COACH_id=lid)
+    i = Certificates.objects.get(id=id)
 
     return JsonResponse({"status": "ok",
-                         "certificate_type": i.certificate_type,
+                         "name": i.certificate_type,
                          "photo": i.file,
                          })
 
@@ -1671,35 +1715,60 @@ def coc_view_reviews(request):
 
     return JsonResponse({"status": "ok", "data": l})
 
+
 def coc_upload_videos(request):
     video_title = request.POST['videotitle']
     video_details = request.POST['videodetails']
     lid = request.POST['lid']
-    video_file_base64 = request.POST['videofile']  # Get Base64 string from POST data
+    video_file = request.FILES['videofile']  # Get the uploaded file object
 
+    # Create a new video object
     vid_obj = Video()
-    from datetime import datetime
-    import base64
 
+    # Generate a unique filename based on current datetime
     dt = datetime.now().strftime('%Y%m%d%H%M%S')
-    video_bytes = base64.b64decode(video_file_base64)  # Decode Base64 to bytes
-    fs = open(
-        "D:\\Rumaiz Codes\\Rumaiz Flutter\\Project Ultra\\Project Ultra\\Selection_Trails Pycharm\\media\\" + dt + ".mp4",
-        "wb")
-    path = '/media/' + dt + ".mp4"
-    fs.write(video_bytes)
-    fs.close()
 
+    # Save the file using FileSystemStorage
+    fs = FileSystemStorage()
+    filename = fs.save(dt + ".mp4", video_file)  # Save the video file with a unique name
+    path = fs.url(filename)  # Get the URL to access the saved video file
+
+    # Fill in the video object fields
     vid_obj.video_file = path
     vid_obj.date = datetime.now().today()
     vid_obj.video_title = video_title
     vid_obj.video_details = video_details
     vid_obj.COACH = Coach.objects.get(LOGIN_id=lid)
+
+    # Save the video object to the database
     vid_obj.save()
 
     return JsonResponse({"status": "ok"})
 
+def coc_view_videos(request):
+    lid=request.POST['lid']
+    coc_obj=Coach.objects.get(LOGIN_id=lid)
+    vid_obj = Video.objects.filter(COACH_id=coc_obj)
 
+    l = []
+
+    for i in vid_obj:
+        l.append({
+            "videotitle": i.video_title,
+            "videodetails": i.video_details,
+            "videofile": i.video_file,
+            "date": i.date,
+            "id": i.id,
+
+        })
+
+    return JsonResponse({"status": "ok", "data": l})
+
+
+def coc_delete_video(request):
+    id=request.POST['id']
+    Video.objects.get(id=id).delete()
+    return JsonResponse({"status": "ok"})
 
 
 #----------------Chat with Player----------------#

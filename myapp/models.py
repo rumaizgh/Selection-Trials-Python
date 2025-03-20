@@ -70,7 +70,7 @@ class Trials(models.Model):
     ACADEMY=models.ForeignKey(Academy,on_delete=models.CASCADE)
 
 class Trial_Request(models.Model):
-    TRAIL= models.ForeignKey(Trials,on_delete=models.CASCADE)
+    TRIALS= models.ForeignKey(Trials,on_delete=models.CASCADE)
     date=models.DateField()
     status=models.CharField(max_length=50)
     PLAYER=models.ForeignKey(Player,on_delete=models.CASCADE)

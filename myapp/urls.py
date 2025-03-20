@@ -168,8 +168,6 @@ urlpatterns = [
 
     path('ply_view_chat_acd/', views.ply_view_chat_acd),
 
-    path('ply_view_coach_and_follow/', views.ply_view_coach_and_follow),
-
     path('ply_view_followed_coach/', views.ply_view_followed_coach),
 
     path('ply_view_trial/', views.ply_view_trial),
@@ -194,6 +192,11 @@ urlpatterns = [
 
     path('ply_view_reply/', views.ply_view_reply),
 
+    path('ply_view_video_of_coach/', views.ply_view_video_of_coach),
+
+    path('ply_view_coach_to_follow/', views.ply_view_coach_to_follow),
+
+    path('ply_follow_coach/', views.ply_follow_coach),
 
 
     # -------------------FLUTTER---------------------------------------
@@ -252,6 +255,10 @@ urlpatterns = [
     path('coc_view_reviews/', views.coc_view_reviews),
 
     path('coc_upload_videos/', views.coc_upload_videos),
+
+    path('coc_view_videos/', views.coc_view_videos),
+
+    path('coc_delete_video/', views.coc_delete_video),
 
 
 
